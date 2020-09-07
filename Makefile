@@ -22,11 +22,13 @@ endif
 
 ## Install Python Dependencies
 requirements: test_environment
-	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
+	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel kaggle
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
 ## Make Dataset
 data: requirements
+	kaggle datasets download -d snap/amazon-fine-food-reviews -p data/raw
+	unzip -o data/raw/amazon-fine-food-reviews.zip -d data/raw/
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
 ## Delete all compiled Python files
