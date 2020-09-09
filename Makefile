@@ -27,8 +27,12 @@ requirements: test_environment
 
 ## Make Dataset
 data: requirements
+    ### Prepare amazon-fine-food-reviews data from kaggle
 	kaggle datasets download -d snap/amazon-fine-food-reviews -p data/raw
 	unzip -o data/raw/amazon-fine-food-reviews.zip -d data/raw/
+	#rm data/raw/amazon-fine-food-reviews.zip
+
+	### Run the data manipulation script
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
 ## Delete all compiled Python files
