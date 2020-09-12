@@ -7,7 +7,7 @@ Customer Interaction Summary
 Make sure python (python3) is installed and path is setup properly
 
 ### Copy kaggle file access file
-Refer https://github.com/Kaggle/kaggle-api#api-credentials to download to Kaggle file
+Refer https://github.com/Kaggle/kaggle-api#api-credentials to download the Kaggle file
 > cp ~/Downloads/kaggle.json ~/.kaggle
 
 ### Install required packages
