@@ -26,11 +26,20 @@ requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
 ## Make Dataset
-data: requirements
+data: # requirements
     ### Prepare amazon-fine-food-reviews data from kaggle
-	kaggle datasets download -d snap/amazon-fine-food-reviews -p data/raw
-	unzip -o data/raw/amazon-fine-food-reviews.zip -d data/raw/
-	#rm data/raw/amazon-fine-food-reviews.zip
+	# kaggle datasets download -d snap/amazon-fine-food-reviews -p data/raw
+	# unzip -o data/raw/amazon-fine-food-reviews.zip -d data/raw/
+	# rm data/raw/amazon-fine-food-reviews.zip
+
+    ### Prepare isears-dataset data from kaggle
+	kaggle datasets download -d shrivastava/isears-dataset -p data/raw
+	unzip -o data/raw/isears-dataset.zip -d data/raw/
+	#rm data/raw/isear.csv
+
+	# Get the pretrained Glove embeddings
+	wget http://nlp.stanford.edu/data/glove.6B.zip -P data/external
+	unzip data/external/glove.6B.zip -d data/external/
 
 	### Run the data manipulation script
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
