@@ -26,7 +26,7 @@ requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
 ## Make Dataset
-data: # requirements
+data: requirements
     ### Prepare amazon-fine-food-reviews data from kaggle
 	# kaggle datasets download -d snap/amazon-fine-food-reviews -p data/raw
 	# unzip -o data/raw/amazon-fine-food-reviews.zip -d data/raw/
