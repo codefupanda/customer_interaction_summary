@@ -11,4 +11,6 @@ Refer https://github.com/Kaggle/kaggle-api#api-credentials to download the Kaggl
 > cp ~/Downloads/kaggle.json ~/.kaggle
 
 ### Install required packages
+> make create_environment
+> conda activate customer_interaction_summary
 > make requirements

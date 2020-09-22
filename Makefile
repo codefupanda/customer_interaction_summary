@@ -95,7 +95,8 @@ test_environment:
 # PROJECT RULES                                                                 #
 #################################################################################
 
-
+train: # data
+	$(PYTHON_INTERPRETER) src/models/train_model.py --input_filepath=data/raw --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=10000 --epochs=10 --batch_size=32
 
 #################################################################################
 # Self Documenting Commands                                                     #
