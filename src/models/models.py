@@ -78,7 +78,7 @@ class LSTMModel(Model):
             model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
             model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen))
-        model.add(LSTM(128, return_sequences=True, dropout=0.2, recurrent_dropout=0.2))
+        model.add(LSTM(128, return_sequences=True, dropout=0.2))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         self.model = model
