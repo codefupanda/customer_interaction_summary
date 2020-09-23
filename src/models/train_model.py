@@ -14,10 +14,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Keras
+import tensorflow as tf
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.preprocessing.text import one_hot, Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax
 
 import models
@@ -79,7 +81,9 @@ def train_models(X, y, model_name, epochs, batch_size, params):
         ## Get the class object from the models file and create instance
     model = getattr(models, model_name)(**params)
 
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    opt = Adam(learning_rate=0.01)
+    opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
     model.fit(x_train, to_categorical(y_train),
             epochs=epochs,
             batch_size=batch_size,
