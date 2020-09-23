@@ -21,3 +21,4 @@ scikit-learn
 # TensorFlow v.2.1 and above include both CPU and GPU versions.
 
 tensorflow
+keras-self-attention

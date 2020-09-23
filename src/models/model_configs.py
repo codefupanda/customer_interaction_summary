@@ -71,4 +71,22 @@ model_configs = {
             
         }
     },
+    "HybridModel": {
+        "class_name": "HybridModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            
+        }
+    }, 
+    "HybridModel_Glove": {
+        "class_name": "LSTMModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            
+        }
+    },
 }
