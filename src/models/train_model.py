@@ -22,6 +22,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax
 
+import nlpaug.augmenter.word as naw
+
 import models
 from model_configs import model_configs
 # from models import Net
@@ -46,7 +48,14 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     logger.info('--epochs ' + str(epochs))
     logger.info('--batch_size ' + str(batch_size))
 
-    isear = pd.read_csv(input_filepath + '/isear.csv', sep='|', error_bad_lines=False, usecols=['Field1', 'SIT', 'EMOT'])
+    isear = pd.read_csv(input_filepath + '/isear.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
+
+    ###!!!! Augmenting, Tokenization should happen before Test/Train Data split !!!!###
+    aug = naw.SpellingAug()
+    isear_aug = isear.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
+    isear_aug.columns = isear.columns
+    isear = pd.concat([isear, isear_aug], ignore_index = True)
+
     number_of_classes = len(isear.EMOT.unique())
 
     tokenizer = Tokenizer(num_words=max_words)
