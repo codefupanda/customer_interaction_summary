@@ -18,13 +18,13 @@ from keras_self_attention import SeqSelfAttention
 
 class DNNModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
         super(DNNModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
         model.add(Flatten())
         model.add(Dense(32, activation='relu'))
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
@@ -36,13 +36,13 @@ class DNNModel(Model):
 
 class SimpleRNNModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
         super(SimpleRNNModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         self.model = model
@@ -53,13 +53,13 @@ class SimpleRNNModel(Model):
 
 class CNNModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
         super(CNNModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
         model.add(Conv1D(32, 7, activation='relu'))
         model.add(MaxPooling1D(5))
         model.add(Conv1D(32, 7, activation='relu'))
@@ -73,13 +73,13 @@ class CNNModel(Model):
 
 class LSTMModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
         super(LSTMModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
         model.add(LSTM(128, return_sequences=True, dropout=0.2))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
@@ -90,13 +90,13 @@ class LSTMModel(Model):
 
 class HybridModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
         super(HybridModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
-            model.add(Embedding(max_words, output_dim=50, input_length=pad_sequences_maxlen))
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
         model.add(Bidirectional(LSTM(128, return_sequences=True)))
         model.add(Conv1D(32, 7, activation='relu'))
         model.add(MaxPooling1D(5))

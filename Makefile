@@ -67,7 +67,7 @@ data: requirements
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
 train: # data
-	$(PYTHON_INTERPRETER) src/models/train_model.py --input_filepath=data/processed --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=20 --batch_size=128
+	$(PYTHON_INTERPRETER) src/models/train_model.py --input_filepath=data/processed --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=20 --batch_size=128 --output_dim=50
 
 test: # train
 	$(PYTHON_INTERPRETER) src/models/predict_model.py --input_filepath=models/ --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=20 --batch_size=128

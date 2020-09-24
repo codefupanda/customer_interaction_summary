@@ -33,7 +33,8 @@ from model_configs import model_configs
 @click.option('--max_words', default=10000, type=int)
 @click.option('--epochs', default=20, type=int)
 @click.option('--batch_size', default=32, type=int)
-def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epochs, batch_size):
+@click.option('--output_dim', default=32, type=int)
+def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epochs, batch_size, output_dim):
     """ Train the models from the processed data (input_filepath) and persist the learned models in output_filepath.
     """
     logger = logging.getLogger(__name__)
@@ -64,7 +65,7 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     sequences_train = pad_sequences(sequences_train, maxlen=pad_sequences_maxlen, padding='post')
     sequences_test = pad_sequences(sequences_test, maxlen=pad_sequences_maxlen, padding='post')
     x_test = pad_sequences(x_test, maxlen=pad_sequences_maxlen, padding='post')
-    embedding_matrix_glove = get_embedding_matrix(max_words, word_index)
+    embedding_matrix_glove = get_embedding_matrix(max_words, word_index, output_dim)
     
     reports = {}
     for model_config in model_configs:
@@ -100,11 +101,11 @@ def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_siz
     return model
 
 
-def get_embedding_matrix(max_words, word_index):
+def get_embedding_matrix(max_words, word_index, output_dim=50):
     glove_dir = 'data/external'
     embeddings_index = {}
 
-    f = open(os.path.join(glove_dir, 'glove.6B.50d.txt'))
+    f = open(os.path.join(glove_dir, 'glove.6B.' + str(output_dim) + 'd.txt'))
     for line in f:
         values = line.split()
         word = values[0]
@@ -113,9 +114,8 @@ def get_embedding_matrix(max_words, word_index):
     f.close()
 
     print('Found %s word vectors.' % len(embeddings_index))
-    embedding_dim = 50 # if chaning this, update the file name above 
 
-    embedding_matrix = np.zeros((max_words, embedding_dim))
+    embedding_matrix = np.zeros((max_words, output_dim))
 
     for word, i in word_index.items():
         if i < max_words:
