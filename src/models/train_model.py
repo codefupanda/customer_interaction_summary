@@ -22,14 +22,12 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax
 
-import nlpaug.augmenter.word as naw
-
 import models
 from model_configs import model_configs
 # from models import Net
 
 @click.command()
-@click.option('--input_filepath', default='data/raw', type=click.Path())
+@click.option('--input_filepath', default='data/processed', type=click.Path())
 @click.option('--output_filepath', default='models/', type=click.Path())
 @click.option('--pad_sequences_maxlen', default=1000, type=int)
 @click.option('--max_words', default=10000, type=int)
@@ -48,26 +46,24 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     logger.info('--epochs ' + str(epochs))
     logger.info('--batch_size ' + str(batch_size))
 
-    isear = pd.read_csv(input_filepath + '/isear.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
-
-    ###!!!! Augmenting, Tokenization should happen before Test/Train Data split !!!!###
-    aug = naw.SpellingAug()
-    isear_aug = isear.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
-    isear_aug.columns = isear.columns
-    isear_aug1 = isear.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
-    isear_aug1.columns = isear.columns
-    isear = pd.concat([isear, isear_aug, isear_aug1], ignore_index = True)
-
+    isear = pd.read_csv(input_filepath + '/isear_train.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
+    isear_test = pd.read_csv(input_filepath + '/isear_test.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
+    sit_train, sit_test, emot_train, emot_test = train_test_split(isear['SIT'], isear['EMOT'], test_size=0.1)
+    x_test, y_test = isear_test['SIT'], isear_test['EMOT']
     number_of_classes = len(isear.EMOT.unique())
 
     tokenizer = Tokenizer(num_words=max_words)
-    tokenizer.fit_on_texts(isear['SIT'])
-    sequences = tokenizer.texts_to_sequences(isear['SIT'])
+    tokenizer.fit_on_texts(sit_train)
+    sequences_train = tokenizer.texts_to_sequences(sit_train)
+    sequences_test = tokenizer.texts_to_sequences(sit_test)
+    x_test = tokenizer.texts_to_sequences(x_test)
 
     word_index = tokenizer.word_index
     print('Found %s unique tokens.' % len(word_index))
 
-    X = pad_sequences(sequences, maxlen=pad_sequences_maxlen, padding='post')
+    sequences_train = pad_sequences(sequences_train, maxlen=pad_sequences_maxlen, padding='post')
+    sequences_test = pad_sequences(sequences_test, maxlen=pad_sequences_maxlen, padding='post')
+    x_test = pad_sequences(x_test, maxlen=pad_sequences_maxlen, padding='post')
     embedding_matrix_glove = get_embedding_matrix(max_words, word_index)
     
     reports = {}
@@ -79,17 +75,18 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
         params['max_words'] = max_words
         params['number_of_classes'] = number_of_classes
         params['embedding_matrix'] = embedding_matrix_glove
-        model, model_scores = train_models(X, isear['EMOT'], class_name, epochs, batch_size, params)
+        model = train_models(sequences_train, sequences_test, emot_train, emot_test, class_name, epochs, batch_size, params)
+        y_pred = model.predict(x_test)
+        y_pred = y_pred.argmax(axis=-1)
+        model_scores = pd.DataFrame(classification_report(y_pred, y_test, output_dict=True))
         model.save(output_filepath + model_config)
         reports[model_config] = model_scores
     final_report = pd.concat(reports.values(), keys=reports.keys())
     final_report.to_csv(output_filepath + "/final_report.csv")
     print(final_report)
 
-def train_models(X, y, model_name, epochs, batch_size, params):
-    x_train, x_test, y_train, y_test = train_test_split(X, y)
-
-        ## Get the class object from the models file and create instance
+def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_size, params):
+    ## Get the class object from the models file and create instance
     model = getattr(models, model_name)(**params)
 
     opt = Adam(learning_rate=0.01)
@@ -99,10 +96,8 @@ def train_models(X, y, model_name, epochs, batch_size, params):
             epochs=epochs,
             batch_size=batch_size,
             validation_data=(x_test, to_categorical(y_test)))
-    y_pred = model.predict(x_test)
-    y_pred = y_pred.argmax(axis=-1)
 
-    return (model, pd.DataFrame(classification_report(y_pred, y_test, output_dict=True)))
+    return model
 
 
 def get_embedding_matrix(max_words, word_index):

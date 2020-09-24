@@ -4,10 +4,18 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 
+# Sklearn
+from sklearn.model_selection import train_test_split
+
+# The basics
+import numpy as np
+import pandas as pd
+
+import nlpaug.augmenter.word as naw
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
+@click.argument('output_filepath', type=click.Path(exists=True))
 def main(input_filepath, output_filepath):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
@@ -15,6 +23,18 @@ def main(input_filepath, output_filepath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
+    isear = pd.read_csv(input_filepath + '/isear.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
+    isear_train, isear_test = train_test_split(isear)
+    aug = naw.SpellingAug()
+    isear_aug = isear_train.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
+    isear_aug.columns = isear.columns
+    isear_aug1 = isear_train.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
+    isear_aug1.columns = isear.columns
+    isear_train = pd.concat([isear_train, isear_aug, isear_aug1], ignore_index = True)
+    isear_train.to_csv(output_filepath + "/isear_train.csv", sep='|', index=False)
+    isear_test.to_csv(output_filepath + "/isear_test.csv", sep='|', index=False)
+
+    logger.info('successfully wrote train and test files')
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

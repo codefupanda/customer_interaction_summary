@@ -79,7 +79,7 @@ model_configs = {
         "params": {
 
         }
-    }, 
+    },
     "HybridModel_Glove": {
         "class_name": "LSTMModel",
         "meta": {
