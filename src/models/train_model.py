@@ -54,7 +54,9 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     aug = naw.SpellingAug()
     isear_aug = isear.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
     isear_aug.columns = isear.columns
-    isear = pd.concat([isear, isear_aug], ignore_index = True)
+    isear_aug1 = isear.apply(lambda x: pd.Series([x[0], aug.augment(x[1])]), axis=1)
+    isear_aug1.columns = isear.columns
+    isear = pd.concat([isear, isear_aug, isear_aug1], ignore_index = True)
 
     number_of_classes = len(isear.EMOT.unique())
 
