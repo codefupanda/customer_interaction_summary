@@ -14,7 +14,7 @@ from tensorflow.keras import Model
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax, LSTM, SimpleRNN, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Bidirectional, Dropout
 
-from keras_self_attention import SeqSelfAttention
+# from keras_self_attention import SeqSelfAttention
 
 class DNNModel(Model):
 

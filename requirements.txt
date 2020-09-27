@@ -17,6 +17,7 @@ matplotlib
 Pillow
 scikit-learn
 nlpaug
+spacy
 
 ################################################################
 # TensorFlow v.2.1 and above include both CPU and GPU versions.
