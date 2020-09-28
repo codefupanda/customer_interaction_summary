@@ -48,6 +48,7 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     logger.info('--batch_size ' + str(batch_size))
 
     isear = pd.read_csv(input_filepath + '/isear_train.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
+    isear['SIT'] = isear['SIT'].astype(str)
     isear_test = pd.read_csv(input_filepath + '/isear_test.csv', sep='|', error_bad_lines=False, usecols=['SIT', 'EMOT'])
     sit_train, sit_test, emot_train, emot_test = train_test_split(isear['SIT'], isear['EMOT'], test_size=0.1)
     x_test, y_test = isear_test['SIT'], isear_test['EMOT']
