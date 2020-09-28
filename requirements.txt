@@ -22,5 +22,5 @@ spacy
 ################################################################
 # TensorFlow v.2.1 and above include both CPU and GPU versions.
 
-tensorflow
+tensorflow==2.3.0
 keras-self-attention
