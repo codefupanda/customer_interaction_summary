@@ -17,7 +17,7 @@ import spacy
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path(exists=True))
 @click.argument('remove-stopwords', type=bool, default=False)
-@click.argument('lemmatize', type=bool, default=True)
+@click.argument('lemmatize', type=bool, default=False)
 @click.argument('augment', type=bool, default=False)
 def main(input_filepath, output_filepath, lemmatize, remove_stopwords, augment):
     """ Runs data processing scripts to turn raw data from (../raw) into
