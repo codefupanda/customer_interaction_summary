@@ -109,7 +109,12 @@ def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_siz
     ## Get the class object from the models file and create instance
     model = getattr(models, model_name)(**params)
 
-    opt = Nadam(learning_rate=0.01, decay=1e-2/epochs)
+    lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+        initial_learning_rate=1e-2,
+        decay_steps=20,
+        decay_rate=0.9)
+
+    opt = Adam(learning_rate=lr_schedule, decay=1e-2/epochs)
     opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
     model.fit(x_train, to_categorical(y_train),
