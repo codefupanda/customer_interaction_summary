@@ -110,7 +110,7 @@ def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_siz
     model = getattr(models, model_name)(**params)
 
     lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate=0.1,
+        initial_learning_rate=1e-2,
         decay_steps=20,
         decay_rate=0.9)
 
