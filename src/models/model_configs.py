@@ -5,7 +5,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "DNN_Glove": {
@@ -14,7 +14,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "SimpleRNN": {
@@ -23,7 +23,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "SimpleRNN_Glove": {
@@ -32,7 +32,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "CNN": {
@@ -41,7 +41,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "CNN_Glove": {
@@ -50,7 +50,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "LSTM": {
@@ -59,7 +59,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "LSTM_Glove": {
@@ -68,7 +68,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "StackedLSTM": {
@@ -77,7 +77,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "StackedLSTM_Glove": {
@@ -86,7 +86,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
    "StackedBiLSTM": {
@@ -95,7 +95,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "StackedBiLSTM_Glove": {
@@ -104,7 +104,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "BiLSTM": {
@@ -113,7 +113,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     }, 
     "BiLSTM_Glove": {
@@ -122,7 +122,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "HybridModel": {
@@ -131,7 +131,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "dropout": 0.3,
         }
     },
     "HybridModel_Glove": {
@@ -140,7 +140,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            
+            "dropout": 0.3,
         }
     },
 }

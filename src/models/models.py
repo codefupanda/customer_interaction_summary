@@ -18,7 +18,7 @@ from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax, LSTM, Si
 
 class DNNModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(DNNModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
@@ -36,7 +36,7 @@ class DNNModel(Model):
 
 class SimpleRNNModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(SimpleRNNModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
@@ -53,7 +53,7 @@ class SimpleRNNModel(Model):
 
 class CNNModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(CNNModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
@@ -73,14 +73,14 @@ class CNNModel(Model):
 
 class LSTMModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(LSTMModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
-        model.add(LSTM(128, return_sequences=True, dropout=0.2))
+        model.add(LSTM(128, return_sequences=True, dropout=dropout))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         self.model = model
@@ -91,15 +91,15 @@ class LSTMModel(Model):
 
 class StackedLSTMModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(StackedLSTMModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
-        model.add(LSTM(128, return_sequences=True, dropout=0.2))
-        model.add(LSTM(64, return_sequences=True, dropout=0.2))
+        model.add(LSTM(128, return_sequences=True, dropout=dropout))
+        model.add(LSTM(64, return_sequences=True, dropout=dropout))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         self.model = model
@@ -110,14 +110,14 @@ class StackedLSTMModel(Model):
 
 class BiLSTMModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(BiLSTMModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
-        model.add(Bidirectional(LSTM(128, return_sequences=True, dropout=0.2)))
+        model.add(Bidirectional(LSTM(128, return_sequences=True, dropout=dropout)))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         self.model = model
@@ -125,17 +125,18 @@ class BiLSTMModel(Model):
     def call(self, inputs):
         return self.model(inputs)
 
+
 class StackedBiLSTMModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(StackedBiLSTMModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
-        model.add(Bidirectional(LSTM(128, return_sequences=True, dropout=0.2)))
-        model.add(Bidirectional(LSTM(64, return_sequences=True, dropout=0.2)))
+        model.add(Bidirectional(LSTM(128, return_sequences=True, dropout=dropout)))
+        model.add(Bidirectional(LSTM(64, return_sequences=True, dropout=dropout)))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         self.model = model
@@ -146,7 +147,7 @@ class StackedBiLSTMModel(Model):
 
 class HybridModel(Model):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=0.2):
         super(HybridModel, self).__init__()
         model = Sequential()
         if embedding_matrix is not None:
@@ -156,10 +157,10 @@ class HybridModel(Model):
         model.add(Bidirectional(LSTM(128, return_sequences=True)))
         model.add(Conv1D(32, 7, activation='relu'))
         model.add(MaxPooling1D(5))
-        model.add(Dropout(0.2))
+        model.add(Dropout(dropout))
         model.add(GlobalMaxPooling1D())
         model.add(Dense(64, activation='relu'))
-        model.add(Dropout(0.2))
+        model.add(Dropout(dropout))
         model.add(Dense(number_of_classes + 1, activation='softmax'))
         self.model = model
 
