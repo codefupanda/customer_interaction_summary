@@ -89,6 +89,24 @@ model_configs = {
 
         }
     },
+   "StackedBiLSTM": {
+        "class_name": "StackedBiLSTMModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+
+        }
+    }, 
+    "StackedBiLSTM_Glove": {
+        "class_name": "StackedBiLSTMModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+
+        }
+    },
     "BiLSTM": {
         "class_name": "BiLSTMModel",
         "meta": {
