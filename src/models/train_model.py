@@ -15,6 +15,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 # Keras
 import tensorflow as tf
+from tensorflow.keras import backend as K
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.preprocessing.text import one_hot, Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -87,13 +88,30 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     final_report.to_csv(output_filepath + "/final_report.csv")
     print(final_report)
 
+def recall_m(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())
+    return recall
+
+def precision_m(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
+
+def f1_m(y_true, y_pred):
+    precision = precision_m(y_true, y_pred)
+    recall = recall_m(y_true, y_pred)
+    return 2*((precision*recall)/(precision+recall+K.epsilon()))
+
 def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_size, params):
     ## Get the class object from the models file and create instance
     model = getattr(models, model_name)(**params)
 
     opt = Adam(learning_rate=0.01)
     opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
-    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
     model.fit(x_train, to_categorical(y_train),
             epochs=epochs,
             batch_size=batch_size,
