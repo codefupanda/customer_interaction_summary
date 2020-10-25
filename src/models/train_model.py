@@ -20,7 +20,7 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.preprocessing.text import one_hot, Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam, Nadam
 from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax
 
 import models
@@ -32,7 +32,7 @@ from model_configs import model_configs
 @click.option('--output_filepath', default='models/', type=click.Path())
 @click.option('--pad_sequences_maxlen', default=1000, type=int)
 @click.option('--max_words', default=10000, type=int)
-@click.option('--epochs', default=20, type=int)
+@click.option('--epochs', default=10, type=int)
 @click.option('--batch_size', default=32, type=int)
 @click.option('--output_dim', default=32, type=int)
 def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epochs, batch_size, output_dim):
@@ -109,7 +109,7 @@ def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_siz
     ## Get the class object from the models file and create instance
     model = getattr(models, model_name)(**params)
 
-    opt = Adam(learning_rate=0.01, decay=1e-2/epochs)
+    opt = Nadam(learning_rate=0.01, decay=1e-2/epochs)
     opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
     model.fit(x_train, to_categorical(y_train),
