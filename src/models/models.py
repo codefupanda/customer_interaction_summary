@@ -88,6 +88,43 @@ class LSTMModel(Model):
     def call(self, inputs):
         return self.model(inputs)
 
+
+class StackedLSTMModel(Model):
+
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+        super(StackedLSTMModel, self).__init__()
+        model = Sequential()
+        if embedding_matrix is not None:
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+        else:
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
+        model.add(LSTM(128, return_sequences=True, dropout=0.2))
+        model.add(LSTM(64, return_sequences=True, dropout=0.2))
+        model.add(Flatten())
+        model.add(Dense(number_of_classes + 1,  activation='softmax'))
+        self.model = model
+
+    def call(self, inputs):
+        return self.model(inputs)
+
+
+class BiLSTMModel(Model):
+
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):
+        super(BiLSTMModel, self).__init__()
+        model = Sequential()
+        if embedding_matrix is not None:
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+        else:
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
+        model.add(Bidirectional(LSTM(128, return_sequences=True, dropout=0.2)))
+        model.add(Flatten())
+        model.add(Dense(number_of_classes + 1,  activation='softmax'))
+        self.model = model
+
+    def call(self, inputs):
+        return self.model(inputs)
+
 class HybridModel(Model):
 
     def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None):

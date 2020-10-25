@@ -53,8 +53,26 @@ model_configs = {
 
     #     }
     # },
-    "LSTM": {
-        "class_name": "LSTMModel",
+    # "LSTM": {
+    #     "class_name": "LSTMModel",
+    #     "meta": {
+    #         "include_glove": False
+    #     }, 
+    #     "params": {
+
+    #     }
+    # }, 
+    # "LSTM_Glove": {
+    #     "class_name": "LSTMModel",
+    #     "meta": {
+    #         "include_glove": True
+    #     }, 
+    #     "params": {
+
+    #     }
+    # },
+    "StackedLSTM": {
+        "class_name": "StackedLSTMModel",
         "meta": {
             "include_glove": False
         }, 
@@ -62,8 +80,26 @@ model_configs = {
 
         }
     }, 
-    "LSTM_Glove": {
-        "class_name": "LSTMModel",
+    "StackedLSTM_Glove": {
+        "class_name": "StackedLSTMModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+
+        }
+    },
+    "BiLSTM": {
+        "class_name": "BiLSTMModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+
+        }
+    }, 
+    "BiLSTM_Glove": {
+        "class_name": "BiLSTMModel",
         "meta": {
             "include_glove": True
         }, 
