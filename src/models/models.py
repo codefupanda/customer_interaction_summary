@@ -41,8 +41,8 @@ class DNNModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout = self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout = self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -57,7 +57,7 @@ class DNNModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -83,8 +83,8 @@ class SimpleRNNModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -98,7 +98,7 @@ class SimpleRNNModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -124,8 +124,8 @@ class CNNModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -141,7 +141,7 @@ class CNNModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -167,8 +167,8 @@ class LSTMModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -182,7 +182,7 @@ class LSTMModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -208,8 +208,8 @@ class StackedLSTMModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -224,7 +224,7 @@ class StackedLSTMModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -250,8 +250,8 @@ class BiLSTMModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -265,7 +265,7 @@ class BiLSTMModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -291,8 +291,8 @@ class StackedBiLSTMModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -307,7 +307,7 @@ class StackedBiLSTMModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
@@ -333,8 +333,8 @@ class HybridModel(HyperModel):
         number_of_classes = self.number_of_classes
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -353,7 +353,7 @@ class HybridModel(HyperModel):
         
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=initial_learning_rate,
-            decay_steps=20,
+            decay_steps=40,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
