@@ -1,65 +1,65 @@
 model_configs = {
-    # "DNN": {
-    #     "class_name": "DNNModel",
-    #     "meta": {
-    #         "include_glove": False
-    #     }, 
-    #     "params": {
-
-    #     }
-    # }, 
-    # "DNN_Glove": {
-    #     "class_name": "DNNModel",
-    #     "meta": {
-    #         "include_glove": True
-    #     }, 
-    #     "params": {
-
-    #     }
-    # },
-    # # "SimpleRNN": {
-    # #     "class_name": "SimpleRNNModel",
-    # #     "meta": {
-    # #         "include_glove": False
-    # #     }, 
-    # #     "params": {
-
-    # #     }
-    # # }, 
-    # # "SimpleRNN_Glove": {
-    # #     "class_name": "SimpleRNNModel",
-    # #     "meta": {
-    # #         "include_glove": True
-    # #     }, 
-    # #     "params": {
-
-    # #     }
-    # # },
-    # "CNN": {
-    #     "class_name": "CNNModel",
-    #     "meta": {
-    #         "include_glove": False
-    #     }, 
-    #     "params": {
-
-    #     }
-    # }, 
-    # "CNN_Glove": {
-    #     "class_name": "CNNModel",
-    #     "meta": {
-    #         "include_glove": True
-    #     }, 
-    #     "params": {
-
-    #     }
-    # },
+    "DNN": {
+        "class_name": "DNNModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            "recurrent_dropout": 0
+        }
+    }, 
+    "DNN_Glove": {
+        "class_name": "DNNModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            "recurrent_dropout": 0
+        }
+    },
+    "SimpleRNN": {
+        "class_name": "SimpleRNNModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            "recurrent_dropout": 0
+        }
+    }, 
+    "SimpleRNN_Glove": {
+        "class_name": "SimpleRNNModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            "recurrent_dropout": 0
+        }
+    },
+    "CNN": {
+        "class_name": "CNNModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            "recurrent_dropout": 0
+        }
+    }, 
+    "CNN_Glove": {
+        "class_name": "CNNModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            "recurrent_dropout": 0
+        }
+    },
     "LSTM": {
         "class_name": "LSTMModel",
         "meta": {
             "include_glove": False
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     }, 
     "LSTM_Glove": {
@@ -68,7 +68,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     },
     "StackedLSTM": {
@@ -77,7 +77,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     }, 
     "StackedLSTM_Glove": {
@@ -86,7 +86,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     },
    "StackedBiLSTM": {
@@ -95,7 +95,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     }, 
     "StackedBiLSTM_Glove": {
@@ -104,7 +104,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     },
     "BiLSTM": {
@@ -113,7 +113,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     }, 
     "BiLSTM_Glove": {
@@ -122,7 +122,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     },
     "HybridModel": {
@@ -131,7 +131,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     },
     "HybridModel_Glove": {
@@ -140,7 +140,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-
+            "recurrent_dropout": 0
         }
     },
 }
