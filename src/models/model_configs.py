@@ -5,7 +5,8 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
         }
     }, 
     "DNN_Glove": {
@@ -14,34 +15,38 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
         }
     },
-    "SimpleRNN": {
-        "class_name": "SimpleRNNModel",
-        "meta": {
-            "include_glove": False
-        }, 
-        "params": {
-            "recurrent_dropout": 0
-        }
-    }, 
-    "SimpleRNN_Glove": {
-        "class_name": "SimpleRNNModel",
-        "meta": {
-            "include_glove": True
-        }, 
-        "params": {
-            "recurrent_dropout": 0
-        }
-    },
+    # "SimpleRNN": {
+    #     "class_name": "SimpleRNNModel",
+    #     "meta": {
+    #         "include_glove": False
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #         "initial_learning_rate": 0.01
+    #     }
+    # }, 
+    # "SimpleRNN_Glove": {
+    #     "class_name": "SimpleRNNModel",
+    #     "meta": {
+    #         "include_glove": True
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #         "initial_learning_rate": 0.01
+    #     }
+    # },
     "CNN": {
         "class_name": "CNNModel",
         "meta": {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
         }
     }, 
     "CNN_Glove": {
@@ -50,7 +55,8 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
         }
     },
     "LSTM": {
@@ -59,7 +65,8 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
         }
     }, 
     "LSTM_Glove": {
@@ -68,7 +75,8 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
         }
     },
     "StackedLSTM": {
@@ -77,7 +85,6 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     }, 
     "StackedLSTM_Glove": {
@@ -86,7 +93,6 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     },
    "StackedBiLSTM": {
@@ -95,7 +101,6 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     }, 
     "StackedBiLSTM_Glove": {
@@ -104,7 +109,6 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     },
     "BiLSTM": {
@@ -113,7 +117,6 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     }, 
     "BiLSTM_Glove": {
@@ -122,7 +125,6 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     },
     "HybridModel": {
@@ -131,7 +133,6 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     },
     "HybridModel_Glove": {
@@ -140,7 +141,6 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "recurrent_dropout": 0
         }
     },
 }

@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
+import json
 
 # The basics
 import numpy as np
@@ -79,11 +80,13 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
         params['max_words'] = max_words
         params['number_of_classes'] = number_of_classes
         params['embedding_matrix'] = embedding_matrix_glove
-        model = train_models(sequences_train, sequences_test, emot_train, emot_test, class_name, epochs, batch_size, params)
+        model, hyperparameters = train_models(sequences_train, sequences_test, emot_train, emot_test, class_name, epochs, batch_size, params)
         y_pred = model.predict(x_test)
         y_pred = y_pred.argmax(axis=-1)
         model_scores = pd.DataFrame(classification_report(y_pred, y_test, output_dict=True))
         model.save(output_filepath + model_config)
+        with open(output_filepath + model_config + "_hyperparameters.json", 'w') as file:
+            file.write(json.dumps(hyperparameters.values)) # use `json.loads` to do the reverse
         reports[model_config] = model_scores
     final_report = pd.concat(reports.values(), keys=reports.keys())
     final_report.to_csv(output_filepath + "/final_report.csv")
@@ -103,7 +106,7 @@ def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_siz
     )
     tuner.search_space_summary()
     tuner.search(x_train, to_categorical(y_train), epochs=epochs, validation_data=(x_test, to_categorical(y_test)))
-    return tuner.get_best_models(num_models=1)[0]
+    return tuner.get_best_models(num_models=1)[0], tuner.oracle.get_best_trials(num_trials=1)[0].hyperparameters
 
 
 def get_embedding_matrix(max_words, word_index, output_dim=50):

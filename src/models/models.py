@@ -25,27 +25,24 @@ from kerastuner import HyperModel
 
 class DNNModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(DNNModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
-        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
+        dropout = self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
@@ -62,7 +59,7 @@ class DNNModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -70,26 +67,23 @@ class DNNModel(HyperModel):
 
 class SimpleRNNModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(SimpleRNNModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -106,7 +100,7 @@ class SimpleRNNModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -114,26 +108,23 @@ class SimpleRNNModel(HyperModel):
 
 class CNNModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(CNNModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -152,7 +143,7 @@ class CNNModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -160,26 +151,23 @@ class CNNModel(HyperModel):
 
 class LSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(LSTMModel, self).__init__()
-        self.dropout=dropout
-        self.epochs = epochs
+        self.dropout=dropout  
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -196,7 +184,7 @@ class LSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -204,26 +192,23 @@ class LSTMModel(HyperModel):
 
 class StackedLSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(StackedLSTMModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -241,7 +226,7 @@ class StackedLSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -249,26 +234,23 @@ class StackedLSTMModel(HyperModel):
 
 class BiLSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(BiLSTMModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -285,7 +267,7 @@ class BiLSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -293,26 +275,23 @@ class BiLSTMModel(HyperModel):
 
 class StackedBiLSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(StackedBiLSTMModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -330,7 +309,7 @@ class StackedBiLSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -338,26 +317,23 @@ class StackedBiLSTMModel(HyperModel):
 
 class HybridModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, epochs=None, output_dim=50, embedding_matrix=None, dropout=None, recurrent_dropout=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(HybridModel, self).__init__()
         self.dropout=dropout
-        self.epochs = epochs
         self.max_words=max_words
         self.output_dim=output_dim
         self.embedding_matrix=embedding_matrix
-        self.recurrent_dropout=recurrent_dropout
         self.number_of_classes=number_of_classes
         self.pad_sequences_maxlen=pad_sequences_maxlen
-        self.initial_learning_rate = None #initial_learning_rate
+        self.initial_learning_rate = initial_learning_rate
 
     def build(self, hp):
         pad_sequences_maxlen = self.pad_sequences_maxlen
         max_words = self.max_words
         number_of_classes = self.number_of_classes
-        epochs = self.epochs if self.epochs else hp.Int('epochs', min_value=10, max_value=20, default=15, step=5)
         output_dim = self.output_dim
         embedding_matrix = self.embedding_matrix
-        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.04, default=0.01, step=0.01)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
         recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
@@ -379,7 +355,7 @@ class HybridModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=20,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
