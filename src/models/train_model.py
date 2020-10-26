@@ -98,7 +98,8 @@ def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_siz
         max_trials=5,
         executions_per_trial=1,
         directory='random_search',
-        project_name='sentiment_analysis'
+        project_name='sentiment_analysis',
+        distribution_strategy=tf.distribute.MirroredStrategy()
     )
     tuner.search_space_summary()
     tuner.search(x_train, to_categorical(y_train), epochs=epochs, validation_data=(x_test, to_categorical(y_test)))

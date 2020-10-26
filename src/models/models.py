@@ -46,7 +46,7 @@ class DNNModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -91,7 +91,7 @@ class SimpleRNNModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -135,7 +135,7 @@ class CNNModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -181,7 +181,7 @@ class LSTMModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -225,7 +225,7 @@ class StackedLSTMModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -270,7 +270,7 @@ class BiLSTMModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -314,7 +314,7 @@ class StackedBiLSTMModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -359,7 +359,7 @@ class HybridModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.001, max_value=0.01, default=0.01, step=0.003)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = self.recurrent_dropout # if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
