@@ -63,7 +63,7 @@ class DNNModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -107,7 +107,7 @@ class SimpleRNNModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -153,7 +153,7 @@ class CNNModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -197,7 +197,7 @@ class LSTMModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -242,7 +242,7 @@ class StackedLSTMModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -286,7 +286,7 @@ class BiLSTMModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -331,7 +331,7 @@ class StackedBiLSTMModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
@@ -380,7 +380,7 @@ class HybridModel(HyperModel):
             decay_steps=20,
             decay_rate=0.9)
         opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/epochs)
-        opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
 
