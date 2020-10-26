@@ -15,17 +15,18 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 # Keras
 import tensorflow as tf
-from tensorflow.keras import backend as K
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.preprocessing.text import one_hot, Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam, Nadam
 from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax
 
 import models
 from model_configs import model_configs
 # from models import Net
+
+import kerastuner
+from kerastuner.tuners import RandomSearch
 
 @click.command()
 @click.option('--input_filepath', default='data/processed', type=click.Path())
@@ -88,41 +89,20 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
     final_report.to_csv(output_filepath + "/final_report.csv")
     print(final_report)
 
-def recall_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + K.epsilon())
-    return recall
-
-def precision_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
-    return precision
-
-def f1_m(y_true, y_pred):
-    precision = precision_m(y_true, y_pred)
-    recall = recall_m(y_true, y_pred)
-    return 2*((precision*recall)/(precision+recall+K.epsilon()))
-
 def train_models(x_train, x_test, y_train, y_test, model_name, epochs, batch_size, params):
     ## Get the class object from the models file and create instance
     model = getattr(models, model_name)(**params)
-
-    lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
-        initial_learning_rate=1e-2,
-        decay_steps=20,
-        decay_rate=0.9)
-
-    opt = Adam(learning_rate=lr_schedule, decay=1e-2/epochs)
-    opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
-    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
-    model.fit(x_train, to_categorical(y_train),
-            epochs=epochs,
-            batch_size=batch_size,
-            validation_data=(x_test, to_categorical(y_test)))
-
-    return model
+    tuner = RandomSearch(
+        model,
+        objective=kerastuner.Objective("val_f1_m", direction="max"),
+        max_trials=5,
+        executions_per_trial=1,
+        directory='random_search',
+        project_name='sentiment_analysis'
+    )
+    tuner.search_space_summary()
+    tuner.search(x_train, to_categorical(y_train), epochs=epochs, validation_data=(x_test, to_categorical(y_test)))
+    return tuner.get_best_models(num_models=1)[0]
 
 
 def get_embedding_matrix(max_words, word_index, output_dim=50):

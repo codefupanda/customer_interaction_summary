@@ -24,3 +24,4 @@ spacy
 
 tensorflow==2.3.0
 keras-self-attention
+keras-tuner
