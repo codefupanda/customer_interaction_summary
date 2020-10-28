@@ -59,7 +59,7 @@ class DNNModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -100,7 +100,7 @@ class SimpleRNNModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -143,7 +143,7 @@ class CNNModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -184,7 +184,7 @@ class LSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -226,7 +226,7 @@ class StackedLSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -267,7 +267,7 @@ class BiLSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -309,7 +309,7 @@ class StackedBiLSTMModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
@@ -355,7 +355,7 @@ class HybridModel(HyperModel):
             initial_learning_rate=initial_learning_rate,
             decay_steps=40,
             decay_rate=0.9)
-        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/2)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model

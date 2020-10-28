@@ -79,68 +79,76 @@ model_configs = {
     #         "initial_learning_rate": 0.01
     #     }
     # },
-    "StackedLSTM": {
-        "class_name": "StackedLSTMModel",
-        "meta": {
-            "include_glove": False
-        }, 
-        "params": {
-        }
-    }, 
-    "StackedLSTM_Glove": {
-        "class_name": "StackedLSTMModel",
-        "meta": {
-            "include_glove": True
-        }, 
-        "params": {
-        }
-    },
+    # "StackedLSTM": {
+    #     "class_name": "StackedLSTMModel",
+    #     "meta": {
+    #         "include_glove": False
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # }, 
+    # "StackedLSTM_Glove": {
+    #     "class_name": "StackedLSTMModel",
+    #     "meta": {
+    #         "include_glove": True
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # },
+    # "BiLSTM": {
+    #     "class_name": "BiLSTMModel",
+    #     "meta": {
+    #         "include_glove": False
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # }, 
+    # "BiLSTM_Glove": {
+    #     "class_name": "BiLSTMModel",
+    #     "meta": {
+    #         "include_glove": True
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # },
    "StackedBiLSTM": {
         "class_name": "StackedBiLSTMModel",
         "meta": {
             "include_glove": False
         }, 
         "params": {
+            "dropout": 0.3,
         }
     }, 
-    "StackedBiLSTM_Glove": {
-        "class_name": "StackedBiLSTMModel",
-        "meta": {
-            "include_glove": True
-        }, 
-        "params": {
-        }
-    },
-    "BiLSTM": {
-        "class_name": "BiLSTMModel",
-        "meta": {
-            "include_glove": False
-        }, 
-        "params": {
-        }
-    }, 
-    "BiLSTM_Glove": {
-        "class_name": "BiLSTMModel",
-        "meta": {
-            "include_glove": True
-        }, 
-        "params": {
-        }
-    },
-    "HybridModel": {
-        "class_name": "HybridModel",
-        "meta": {
-            "include_glove": False
-        }, 
-        "params": {
-        }
-    },
-    "HybridModel_Glove": {
-        "class_name": "LSTMModel",
-        "meta": {
-            "include_glove": True
-        }, 
-        "params": {
-        }
-    },
+    # "StackedBiLSTM_Glove": {
+    #     "class_name": "StackedBiLSTMModel",
+    #     "meta": {
+    #         "include_glove": True
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # },
+    # "HybridModel": {
+    #     "class_name": "HybridModel",
+    #     "meta": {
+    #         "include_glove": False
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # },
+    # "HybridModel_Glove": {
+    #     "class_name": "LSTMModel",
+    #     "meta": {
+    #         "include_glove": True
+    #     }, 
+    #     "params": {
+    #         "dropout": 0.3,
+    #     }
+    # },
 }
