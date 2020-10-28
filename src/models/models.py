@@ -25,7 +25,7 @@ from kerastuner import HyperModel
 
 class DNNModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(DNNModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words
@@ -67,7 +67,7 @@ class DNNModel(HyperModel):
 
 class SimpleRNNModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(SimpleRNNModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words
@@ -108,7 +108,7 @@ class SimpleRNNModel(HyperModel):
 
 class CNNModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(CNNModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words
@@ -151,7 +151,7 @@ class CNNModel(HyperModel):
 
 class LSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(LSTMModel, self).__init__()
         self.dropout=dropout  
         self.max_words=max_words
@@ -192,7 +192,7 @@ class LSTMModel(HyperModel):
 
 class StackedLSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(StackedLSTMModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words
@@ -234,7 +234,7 @@ class StackedLSTMModel(HyperModel):
 
 class BiLSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(BiLSTMModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words
@@ -275,7 +275,7 @@ class BiLSTMModel(HyperModel):
 
 class StackedBiLSTMModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(StackedBiLSTMModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words
@@ -317,7 +317,7 @@ class StackedBiLSTMModel(HyperModel):
 
 class HybridModel(HyperModel):
 
-    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=50, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
         super(HybridModel, self).__init__()
         self.dropout=dropout
         self.max_words=max_words

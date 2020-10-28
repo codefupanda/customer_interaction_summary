@@ -97,58 +97,64 @@ model_configs = {
     #         "dropout": 0.3,
     #     }
     # },
-    # "BiLSTM": {
-    #     "class_name": "BiLSTMModel",
-    #     "meta": {
-    #         "include_glove": False
-    #     }, 
-    #     "params": {
-    #         "dropout": 0.3,
-    #     }
-    # }, 
-    # "BiLSTM_Glove": {
-    #     "class_name": "BiLSTMModel",
-    #     "meta": {
-    #         "include_glove": True
-    #     }, 
-    #     "params": {
-    #         "dropout": 0.3,
-    #     }
-    # },
+    "BiLSTM": {
+        "class_name": "BiLSTMModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
+        }
+    }, 
+    "BiLSTM_Glove": {
+        "class_name": "BiLSTMModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
+        }
+    },
    "StackedBiLSTM": {
         "class_name": "StackedBiLSTMModel",
         "meta": {
             "include_glove": False
         }, 
         "params": {
+            "dropout": 0.3,
             "initial_learning_rate": 0.01
         }
     }, 
-    # "StackedBiLSTM_Glove": {
-    #     "class_name": "StackedBiLSTMModel",
-    #     "meta": {
-    #         "include_glove": True
-    #     }, 
-    #     "params": {
-    #         "dropout": 0.3,
-    #     }
-    # },
-    # "HybridModel": {
-    #     "class_name": "HybridModel",
-    #     "meta": {
-    #         "include_glove": False
-    #     }, 
-    #     "params": {
-    #         "dropout": 0.3,
-    #     }
-    # },
-    # "HybridModel_Glove": {
-    #     "class_name": "LSTMModel",
-    #     "meta": {
-    #         "include_glove": True
-    #     }, 
-    #     "params": {
-    #         "dropout": 0.3,
-    #     }
-    # },
+    "StackedBiLSTM_Glove": {
+        "class_name": "StackedBiLSTMModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
+        }
+    },
+    "HybridModel": {
+        "class_name": "HybridModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
+        }
+    },
+    "HybridModel_Glove": {
+        "class_name": "LSTMModel",
+        "meta": {
+            "include_glove": True
+        }, 
+        "params": {
+            "dropout": 0.3,
+            "initial_learning_rate": 0.01
+        }
+    },
 }
