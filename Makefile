@@ -68,10 +68,10 @@ data: requirements
 
 train: # data
 	rm -rf random_search
-	$(PYTHON_INTERPRETER) src/models/train_model.py --input_filepath=data/processed --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=20 --batch_size=128 --output_dim=300
+	$(PYTHON_INTERPRETER) src/models/train_model.py --input_filepath=data/processed --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=10 --batch_size=128 --output_dim=300
 
 test: # train
-	$(PYTHON_INTERPRETER) src/models/predict_model.py --input_filepath=models/ --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=20 --batch_size=128
+	$(PYTHON_INTERPRETER) src/models/predict_model.py --input_filepath=models/ --output_filepath=models/ --pad_sequences_maxlen=1000 --max_words=30000 --epochs=10 --batch_size=128
 
 ## Delete all compiled Python files
 clean:
