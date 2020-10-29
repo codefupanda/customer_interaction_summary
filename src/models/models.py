@@ -301,7 +301,7 @@ class StackedBiLSTMModel(HyperModel):
         else:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
         model.add(Bidirectional(LSTM(hp.Int('stacked_bi_lstm_units_1', min_value=128, max_value=256, step=64), return_sequences=True, dropout=dropout, recurrent_dropout=recurrent_dropout)))
-        model.add(Bidirectional(LSTM(hp.Int('stacked_bi_lstm_units_2', min_value=128, max_value=256, step=64), return_sequences=True, dropout=dropout, recurrent_dropout=recurrent_dropout)))
+        model.add(Bidirectional(LSTM(hp.Int('stacked_bi_lstm_units_2', min_value=64, max_value=128, step=32), return_sequences=True, dropout=dropout, recurrent_dropout=recurrent_dropout)))
         model.add(Flatten())
         model.add(Dense(number_of_classes + 1,  activation='softmax'))
         
