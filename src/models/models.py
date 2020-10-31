@@ -381,7 +381,7 @@ class GRUModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = 0.2 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
@@ -421,7 +421,7 @@ class StackedGRUModel(HyperModel):
         embedding_matrix = self.embedding_matrix
         initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
         dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
-        recurrent_dropout = 0.2 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = 0 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
 
         model = Sequential()
         if embedding_matrix is not None:
