@@ -15,7 +15,7 @@ from tensorflow.keras.preprocessing.text import one_hot, Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras import Model
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax, LSTM, SimpleRNN, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Bidirectional, Dropout
+from tensorflow.keras.layers import Embedding, Flatten, Dense, Softmax, LSTM, GRU, SimpleRNN, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Bidirectional, Dropout
 
 # from keras_self_attention import SeqSelfAttention
 
@@ -47,6 +47,7 @@ class DNNModel(HyperModel):
 
         model = Sequential()
         if embedding_matrix is not None:
+            print("Including glove")
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
         else:
             model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
@@ -399,6 +400,48 @@ class GRUModel(HyperModel):
         # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
         return model
+
+class StackedGRUModel(HyperModel):
+
+    def __init__(self, pad_sequences_maxlen, max_words, number_of_classes, output_dim=300, embedding_matrix=None, dropout=None, initial_learning_rate=None):
+        super(StackedGRUModel, self).__init__()
+        self.dropout=dropout  
+        self.max_words=max_words
+        self.output_dim=output_dim
+        self.embedding_matrix=embedding_matrix
+        self.number_of_classes=number_of_classes
+        self.pad_sequences_maxlen=pad_sequences_maxlen
+        self.initial_learning_rate = initial_learning_rate
+
+    def build(self, hp):
+        pad_sequences_maxlen = self.pad_sequences_maxlen
+        max_words = self.max_words
+        number_of_classes = self.number_of_classes
+        output_dim = self.output_dim
+        embedding_matrix = self.embedding_matrix
+        initial_learning_rate = self.initial_learning_rate if self.initial_learning_rate else hp.Float('initial_learning_rate', min_value=0.01, max_value=0.1, default=0.01, step=0.04)
+        dropout =  self.dropout if self.dropout else hp.Float('dropout', min_value=0.2, max_value=0.4, default=0.3, step=0.1)
+        recurrent_dropout = 0.2 # self.recurrent_dropout if self.recurrent_dropout else hp.Float('recurrent_dropout', min_value=0.0, max_value=0.4, default=0.3, step=0.1)
+
+        model = Sequential()
+        if embedding_matrix is not None:
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen, weights=[embedding_matrix], trainable=False))
+        else:
+            model.add(Embedding(max_words, output_dim=output_dim, input_length=pad_sequences_maxlen))
+        model.add(GRU(128, return_sequences=True, dropout=dropout, recurrent_dropout=recurrent_dropout))
+        model.add(GRU(64, return_sequences=True, dropout=dropout, recurrent_dropout=recurrent_dropout))
+        model.add(Flatten())
+        model.add(Dense(number_of_classes + 1,  activation='softmax'))
+        
+        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+            initial_learning_rate=initial_learning_rate,
+            decay_steps=40,
+            decay_rate=0.9)
+        opt = Adam(learning_rate=lr_schedule, decay=initial_learning_rate/20)
+        # opt = tf.train.experimental.enable_mixed_precision_graph_rewrite(opt)
+        model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy', f1_m])
+        return model
+
 
 
 def recall_m(y_true, y_pred):

@@ -79,7 +79,7 @@ def main(input_filepath, output_filepath, pad_sequences_maxlen, max_words, epoch
         params['pad_sequences_maxlen'] = pad_sequences_maxlen
         params['max_words'] = max_words
         params['number_of_classes'] = number_of_classes
-        params['embedding_matrix'] = embedding_matrix_glove
+        params['embedding_matrix'] = embedding_matrix_glove if model_configs[model_config]['meta']['include_glove'] else None
         model, hyperparameters = train_models(sequences_train, sequences_test, emot_train, emot_test, class_name, epochs, batch_size, params)
         y_pred = model.predict(x_test)
         y_pred = y_pred.argmax(axis=-1)
