@@ -78,7 +78,7 @@ model_configs = {
             "dropout": 0.3,
             "initial_learning_rate": 0.01
         }
-    # },
+    },
     # "StackedGRU": {
     #     "class_name": "StackedGRUModel",
     #     "meta": {
