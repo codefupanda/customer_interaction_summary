@@ -159,4 +159,14 @@ model_configs = {
             "initial_learning_rate": 0.01
         }
     },
+    "GRU": {
+        "class_name": "GRUModel",
+        "meta": {
+            "include_glove": False
+        }, 
+        "params": {
+            "dropout": 0.2,
+            "initial_learning_rate": 0.01
+        }
+    }, 
 }
