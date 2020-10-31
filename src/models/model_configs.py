@@ -85,7 +85,7 @@ model_configs = {
             "include_glove": False
         }, 
         "params": {
-            "dropout": 0.3,,
+            "dropout": 0.3
             "initial_learning_rate": 0.01
         }
     }, 
@@ -95,7 +95,7 @@ model_configs = {
             "include_glove": True
         }, 
         "params": {
-            "dropout": 0.3,,
+            "dropout": 0.3,
             "initial_learning_rate": 0.01
         }
     },
