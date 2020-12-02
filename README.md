@@ -1,6 +1,5 @@
-# customer_interaction_summary
-Customer Interaction Summary
-
+# Emotion Recognition
+Emotion Recognition
 
 ## Setup locally
 
