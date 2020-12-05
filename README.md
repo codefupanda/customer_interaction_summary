@@ -13,4 +13,6 @@ Refer https://github.com/Kaggle/kaggle-api#api-credentials to download the Kaggl
 > make create_environment  
 > conda activate customer_interaction_summary  
 > make requirements  
+
+### Train models
 > make train  
